@@ -1,0 +1,18 @@
+package info.java;
+
+public class VolumeCalculation {
+
+	public static void main(String[] args) {
+		double length, breadth, height, volume;
+		length = 14;
+		breadth = 12;
+		height = 10;
+		
+		volume = length * breadth * height;
+		
+		System.out.println("Length = " + length);
+		System.out.println("Breadth = " + breadth);
+		System.out.println("Height = " + height);
+		System.out.println("Volume = " + volume);
+	}
+}
