@@ -1,0 +1,105 @@
+package info.java;
+
+import java.util.Scanner;
+
+class Person {
+    String name;
+    int age;
+
+    void getPersonData(Scanner sc) {
+        System.out.print("Enter name: ");
+        name = sc.nextLine();
+
+        System.out.print("Enter age: ");
+        age = sc.nextInt();
+        sc.nextLine();
+    }
+}
+
+class Student extends Person {
+    int rollNumber;
+    String course;
+
+    void getStudentData(Scanner sc) {
+        System.out.print("Enter roll number: ");
+        rollNumber = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter course: ");
+        course = sc.nextLine();
+    }
+}
+
+class Result extends Student {
+    double marks1;
+    double marks2;
+    double marks3;
+
+    void getResultData(Scanner sc) {
+        System.out.print("Enter marks of Subject 1: ");
+        marks1 = sc.nextDouble();
+
+        System.out.print("Enter marks of Subject 2: ");
+        marks2 = sc.nextDouble();
+
+        System.out.print("Enter marks of Subject 3: ");
+        marks3 = sc.nextDouble();
+    }
+
+    double calculateTotal() {
+        return marks1 + marks2 + marks3;
+    }
+
+    double calculatePercentage() {
+        return calculateTotal() / 3;
+    }
+
+    String calculateGrade() {
+        double percentage = calculatePercentage();
+
+        if (percentage >= 90) {
+            return "A+";
+        } else if (percentage >= 80) {
+            return "A";
+        } else if (percentage >= 70) {
+            return "B";
+        } else if (percentage >= 60) {
+            return "C";
+        } else if (percentage >= 50) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
+
+    void displayResult() {
+        System.out.println("\n----- Student Result -----");
+        System.out.println("Name       : " + name);
+        System.out.println("Age        : " + age);
+        System.out.println("Roll Number: " + rollNumber);
+        System.out.println("Course     : " + course);
+        System.out.println("Subject 1  : " + marks1);
+        System.out.println("Subject 2  : " + marks2);
+        System.out.println("Subject 3  : " + marks3);
+        System.out.println("Total      : " + calculateTotal());
+        System.out.println("Percentage : " + calculatePercentage() + "%");
+        System.out.println("Grade      : " + calculateGrade());
+    }
+}
+
+public class StudentResult {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Result r = new Result();
+
+        r.getPersonData(sc);
+        r.getStudentData(sc);
+        r.getResultData(sc);
+        r.displayResult();
+
+        sc.close();
+    }
+}
+
+
