@@ -1,0 +1,129 @@
+package info.java;
+
+import java.util.Scanner;
+
+class Utility {
+    String citizenName;
+
+    Utility(String citizenName) {
+        this.citizenName = citizenName;
+    }
+
+    double calculateBill() {
+        return 0;
+    }
+
+    void displayBill() {
+        System.out.println("Citizen Name: " + citizenName);
+    }
+}
+
+class Electricity extends Utility {
+    double units;
+
+    Electricity(String citizenName, double units) {
+        super(citizenName);
+        this.units = units;
+    }
+
+    @Override
+    double calculateBill() {
+        if (units <= 100) {
+            return units * 5;
+        } else if (units <= 200) {
+            return units * 7;
+        } else {
+            return units * 10;
+        }
+    }
+
+    @Override
+    void displayBill() {
+        System.out.println("Electricity Units: " + units);
+        System.out.println("Electricity Bill : Rs. " + calculateBill());
+    }
+}
+
+class Water extends Utility {
+    double litres;
+
+    Water(String citizenName, double litres) {
+        super(citizenName);
+        this.litres = litres;
+    }
+
+    @Override
+    double calculateBill() {
+        return litres * 0.05;
+    }
+
+    @Override
+    void displayBill() {
+        System.out.println("Water Consumption: " + litres + " litres");
+        System.out.println("Water Bill       : Rs. " + calculateBill());
+    }
+}
+
+class PropertyTax extends Utility {
+    double propertyValue;
+
+    PropertyTax(String citizenName, double propertyValue) {
+        super(citizenName);
+        this.propertyValue = propertyValue;
+    }
+
+    @Override
+    double calculateBill() {
+        return propertyValue * 0.01;
+    }
+
+    @Override
+    void displayBill() {
+        System.out.println("Property Value: Rs. " + propertyValue);
+        System.out.println("Property Tax  : Rs. " + calculateBill());
+    }
+}
+
+public class SmartCityUtility {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter citizen name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter electricity units: ");
+        double units = sc.nextDouble();
+
+        System.out.print("Enter water consumption in litres: ");
+        double litres = sc.nextDouble();
+
+        System.out.print("Enter property value: ");
+        double propertyValue = sc.nextDouble();
+
+        Utility electricity = new Electricity(name, units);
+        Utility water = new Water(name, litres);
+        Utility propertyTax = new PropertyTax(name, propertyValue);
+
+        System.out.println("\n===== SMART CITY UTILITY REPORT =====");
+        System.out.println("Citizen Name: " + name);
+
+        System.out.println("\n--- Electricity ---");
+        electricity.displayBill();
+
+        System.out.println("\n--- Water ---");
+        water.displayBill();
+
+        System.out.println("\n--- Property Tax ---");
+        propertyTax.displayBill();
+
+        double total = electricity.calculateBill()
+                     + water.calculateBill()
+                     + propertyTax.calculateBill();
+
+        System.out.println("\nTotal Utility Bill: Rs. " + total);
+
+        sc.close();
+    }
+}
+
+
