@@ -1,0 +1,131 @@
+package info.java;
+
+import java.util.Scanner;
+
+class LibraryItem {
+    int itemId;
+    String title;
+    String author;
+    boolean available;
+
+    LibraryItem(int itemId, String title, String author) {
+        this.itemId = itemId;
+        this.title = title;
+        this.author = author;
+        this.available = true;
+    }
+
+    void issueItem() {
+        if (available) {
+            available = false;
+            System.out.println("Item issued successfully.");
+        } else {
+            System.out.println("Item is already issued.");
+        }
+    }
+
+    void returnItem() {
+        if (!available) {
+            available = true;
+            System.out.println("Item returned successfully.");
+        } else {
+            System.out.println("Item is already available.");
+        }
+    }
+
+    void displayDetails() {
+        System.out.println("Item ID      : " + itemId);
+        System.out.println("Title        : " + title);
+        System.out.println("Author       : " + author);
+        System.out.println("Availability : " +
+                (available ? "Available" : "Issued"));
+    }
+
+    double calculateLateFine(int days) {
+        return days * 5;
+    }
+}
+
+class Book extends LibraryItem {
+    Book(int itemId, String title, String author) {
+        super(itemId, title, author);
+    }
+
+    @Override
+    double calculateLateFine(int days) {
+        return days * 5;
+    }
+}
+
+class Magazine extends LibraryItem {
+    Magazine(int itemId, String title, String author) {
+        super(itemId, title, author);
+    }
+
+    @Override
+    double calculateLateFine(int days) {
+        return days * 3;
+    }
+}
+
+class ResearchPaper extends LibraryItem {
+    ResearchPaper(int itemId, String title, String author) {
+        super(itemId, title, author);
+    }
+
+    @Override
+    double calculateLateFine(int days) {
+        return days * 10;
+    }
+}
+
+public class LibraryManagement {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter item ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter title: ");
+        String title = sc.nextLine();
+
+        System.out.print("Enter author: ");
+        String author = sc.nextLine();
+
+        System.out.println("\nSelect item type:");
+        System.out.println("1. Book");
+        System.out.println("2. Magazine");
+        System.out.println("3. Research Paper");
+        System.out.print("Enter choice: ");
+        int choice = sc.nextInt();
+
+        LibraryItem item;
+
+        if (choice == 1) {
+            item = new Book(id, title, author);
+        } else if (choice == 2) {
+            item = new Magazine(id, title, author);
+        } else {
+            item = new ResearchPaper(id, title, author);
+        }
+
+        System.out.println("\n----- Item Details -----");
+        item.displayDetails();
+
+        item.issueItem();
+
+        System.out.print("Enter late days: ");
+        int days = sc.nextInt();
+
+        System.out.println("Late Fine: Rs. " + item.calculateLateFine(days));
+
+        item.returnItem();
+
+        System.out.println("\n----- Updated Details -----");
+        item.displayDetails();
+
+        sc.close();
+    }
+}
+
