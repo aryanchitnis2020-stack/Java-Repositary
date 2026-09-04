@@ -1,0 +1,83 @@
+package info.java;
+
+import java.util.Scanner;
+
+class Passenger {
+    String name;
+    int age;
+    String destination;
+    double distance;
+    String coachType;
+
+    Passenger(String name, int age, String destination, double distance, String coachType) {
+        this.name = name;
+        this.age = age;
+        this.destination = destination;
+        this.distance = distance;
+        this.coachType = coachType;
+    }
+
+    double calculateFare() {
+        double rate;
+
+        if (coachType.equalsIgnoreCase("AC")) {
+            rate = 2.5;
+        } else if (coachType.equalsIgnoreCase("Sleeper")) {
+            rate = 1.5;
+        } else {
+            rate = 1.0;
+        }
+
+        double fare = distance * rate;
+
+        if (age < 12) {
+            fare = fare * 0.50;
+        } else if (age >= 60) {
+            fare = fare * 0.70;
+        }
+
+        return fare;
+    }
+
+    void displayTicket() {
+        System.out.println("\n----- Railway Ticket -----");
+        System.out.println("Passenger Name : " + name);
+        System.out.println("Age            : " + age);
+        System.out.println("Destination    : " + destination);
+        System.out.println("Distance       : " + distance + " km");
+        System.out.println("Coach Type     : " + coachType);
+        System.out.println("Ticket Fare    : Rs. " + calculateFare());
+    }
+}
+
+public class RailwayTicket {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter passenger name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter age: ");
+        int age = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter destination: ");
+        String destination = sc.nextLine();
+
+        System.out.print("Enter distance in km: ");
+        double distance = sc.nextDouble();
+        sc.nextLine();
+
+        System.out.print("Enter coach type (AC/Sleeper/General): ");
+        String coachType = sc.nextLine();
+
+        Passenger p = new Passenger(name, age, destination, distance, coachType);
+        p.displayTicket();
+
+        sc.close();
+    }
+}
+
+
+
+	
